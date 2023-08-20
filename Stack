@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int stack[N], top = -1;
+
+void push(int x) {
+    if (top < N - 1) {
+        top++;
+        stack[top] = x;
+    } else {
+        printf("Stack is full. Cannot push %d.\n", x);
+    }
+}
+
+int pop() {
+    if (top >= 0) {
+        return stack[top--];
+    } else {
+        printf("Stack is empty.\n");
+        return; 
+    }
+}
+
+void display() {
+    int i;
+    for (i = 0; i <= top; i++) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    push(5);
+    push(2);
+    display();
+    pop();
+    display();
+
+    return 0;
+}
