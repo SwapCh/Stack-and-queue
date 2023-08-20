@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define N 5
+int queue[N], rear = -1, front = -1;
+
+bool isEmpty(){
+    return (rear==-1 && front==-1);
+}
+
+bool isFull(){
+    return ((rear+1)%N==front);
+}
+
+void enqueue(int x) {
+    if (isFull()) {
+        printf("Overflow");
+        return;
+    } else if (isEmpty()) {
+        front = rear = 0;
+    } else {
+        rear = (rear + 1) % N;
+    }
+    queue[rear] = x;
+}
+
+
+void dequeue() {
+    if (isEmpty()) {
+        printf("Underflow");
+        return;
+    } else if (front == rear) { // Only one element
+        printf("dequeued element-%d\n", queue[front]);
+        rear = front = -1;
+    } else {
+        printf("dequeued element-%d\n", queue[front]);
+        front = (front + 1) % N;
+    }
+}
+
+
+void display(){
+    if(isEmpty()){
+        printf("List Empty-");
+        return;
+    }
+    int i=front;
+    do{
+        printf("%d ", queue[i]);
+        i=(i+1)%N;
+    }while(i!=(rear+1)%N);
+    printf("\n");
+}
+
+void main(){
+int ch=0, item=0;
+    while(1){
+    printf("\n");
+    printf("Enter 1 to insert an element.\n ");
+    printf("Enter 2 to dequeue an element. \n ");
+    printf("Enter 3 to display. \n ");
+    printf("Enter 0 to exit \n");
+    printf("Enter Choice--");
+    scanf("%d", &ch);
+    printf("\n");
+    switch(ch){
+        case 1:
+            printf("Enter element to be inserted-");
+            scanf("%d", &item);
+            enqueue(item);
+            break;
+            
+        case 2:
+            dequeue();
+            break;
+            
+        case 3:
+            printf("The Queue-");
+            display();
+            break;
+            
+        case 0:
+            printf("Thank You!");
+            exit(0);
+            break;
+            
+        default:
+            printf("Wrong choice");
+            break;
+    }
+    }
+}
+
+
