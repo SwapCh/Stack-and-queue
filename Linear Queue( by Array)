@@ -1,0 +1,91 @@
+/*This Program all the fundamental functions performed on queue data structure
+@author-Swapnil Chatterjee
+date-20th August 2023
+version-1.0*/
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define N 5
+int queue[N], rear = -1, front = -1;
+bool isEmpty=true;
+
+void enqueue(int x) {
+    if (rear<N-1) {
+        queue[++rear] = x;
+    } else {
+        printf("Queue is Full-Overflow\n");
+    }
+}
+
+/*int dequeue() {
+    if (!isEmpty && front < rear) {
+        int value = queue[++front];
+        if (front == rear) {
+            isEmpty = true;
+        }
+        return value;
+    } else {
+        printf("Queue is empty-UnderFlow\n");
+        return -1;
+    }
+}*/
+
+void dequeue(){
+    if (front < rear) {
+        printf("dequeued element-%d \n", queue[++front]);
+    } else {
+        printf("Queue is empty-UnderFlow\n");
+    }
+}
+
+
+
+
+void display() {
+    int i;
+    for (i = front + 1; i <= rear; i++) {
+        printf("%d ", queue[i]);
+    }
+    printf("\n");
+}
+
+void main() {
+    int ch=0, item=0;
+    while(1){
+    printf("\n");
+    printf("Enter 1 to push an element.\n ");
+    printf("Enter 2 to pop an element. \n ");
+    printf("Enter 3 to display. \n ");
+    printf("Enter 0 to exit \n");
+    printf("Enter Choice--");
+    scanf("%d", &ch);
+    printf("\n");
+    switch(ch){
+        case 1:
+            printf("Enter element to be pushed-");
+            scanf("%d", &item);
+            enqueue(item);
+            break;
+            
+        case 2:
+            dequeue();
+            break;
+            
+        case 3:
+            printf("The Queue-");
+            display();
+            break;
+            
+        case 0:
+            printf("Thank You!");
+            exit(0);
+            break;
+            
+        default:
+            printf("Wrong choice");
+            break;
+    }
+    }
+}
