@@ -1,0 +1,118 @@
+/*Implementation of Queue using stacks
+@author-S.Chatterjee
+date-21st August, 2023.
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 5
+
+int s1[N], s2[N];
+int top1=-1, top2=-1, count=0;
+
+void push1(int x){
+    if(top1==N-1){
+        printf("Stack Overflow");
+        return;
+    }
+    else{
+        s1[++top1]=x;
+    }
+}
+
+void push2(int x){
+    if(top2==N-1){
+        printf("Stack Overflow");
+        return;
+    }
+    else{
+        s2[++top2]=x;
+    }
+}
+
+int pop1(){
+    return s1[top1--];
+}
+
+int pop2(){
+    return s2[top2--];
+}
+
+void enqueue(int x){
+    push1(x);
+    count++;
+}
+
+void dequeue(){
+    int a,b;
+    if(top1==-1 && top2==-1){
+        printf("Queue is empty!");
+    }
+    else{
+        int i;
+        for(i=0; i<count; i++){
+            a=pop1();
+            push2(a);
+        }
+        b=pop2();
+        printf("Dequeued Element-%d\n ", b);
+        count--;
+        for(i=0;i<count;i++){
+            a=pop2();
+            push1(a);
+        }
+    }
+}
+
+void display(){
+    int i=0;
+    if (top1==-1){
+        printf("Empty Queue!");
+    }
+    else{
+    for(i=0; i<=top1; i++){
+        printf("%d ", s1[i]);
+    }
+    printf("\n");
+}
+}
+
+void main(){
+int ch=0, item=0;
+    while(1){
+    printf("\n");
+    printf("Enter 1 to insert an element.\n ");
+    printf("Enter 2 to dequeue an element. \n ");
+    printf("Enter 3 to display. \n ");
+    printf("Enter 0 to exit \n");
+    printf("Enter Choice--");
+    scanf("%d", &ch);
+    printf("\n");
+    switch(ch){
+        case 1:
+            printf("Enter element to be inserted-");
+            scanf("%d", &item);
+            enqueue(item);
+            break;
+
+        case 2:
+            dequeue();
+            break;
+
+        case 3:
+            printf("The Queue-");
+            display();
+            break;
+
+        case 0:
+            printf("Thank You!");
+            exit(0);
+            break;
+
+        default:
+            printf("Wrong choice");
+            break;
+    }
+    }
+}
